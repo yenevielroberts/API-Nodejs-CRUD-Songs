@@ -43,8 +43,7 @@ router.get("/", (req, res) => {
             const movies = data.movies
             //const user = { name: "Yeneviel" }
 
-            res.render("movies/listMovies", { user, movies })
-
+            res.json({ movies })
 
         //}
 
@@ -77,7 +76,7 @@ router.get("/movies", (req, res) => {
 
 })
 
-//Creem un endpoint per obtenir un formulario con los datos ya rellenados para editar
+//VISTA Creem un endpoint per obtenir un formulario con los datos ya rellenados para editar
 router.get("/movies/:id", (req, res) => {
 
     try {
@@ -107,7 +106,7 @@ router.get("/movies/:id", (req, res) => {
 
 
 })
-//Creem un endpoint per obtenir un peli per un id y mostrarlo en vista
+//GET Creem un endpoint per obtenir un peli per un id y mostrarlo en vista
 router.get("/show/:id", (req, res) => {
 
     try {
@@ -126,7 +125,7 @@ router.get("/show/:id", (req, res) => {
 
                 res.status(404).json({ message: "Movie not found" });
             } else {
-                res.render('movies/detailMovies', { movie: movie });
+                res.json({ movie: movie });
             }
         //}
 
@@ -137,7 +136,7 @@ router.get("/show/:id", (req, res) => {
 })
 
 
-//Creem un endpoint del tipus post per afegir una canço
+//POST Creem un endpoint del tipus post per afegir una canço
 router.post("/movies", (req, res) => {
 
     try {
@@ -186,7 +185,7 @@ router.post("/movies", (req, res) => {
     }
 });
 
-//Creem un endpoint per modificar una canço
+//PUT Creem un endpoint per modificar una canço
 router.put("/movies/:id", (req, res) => {
 
     try {
@@ -222,7 +221,7 @@ router.put("/movies/:id", (req, res) => {
 });
 
 
-//Creem un endpoint per eliminar una canço
+//DELETE Creem un endpoint per eliminar una canço
 router.delete("/movies/:id", (req, res) => {
 
     try {
