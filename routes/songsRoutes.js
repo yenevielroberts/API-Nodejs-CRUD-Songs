@@ -33,18 +33,18 @@ router.get("/", (req, res) => {
 
     try {
         //Compruebo el accesso
-        //const { user } = req.session //Obtengo los datos de session del usuario
+        const { user } = req.session //Obtengo los datos de session del usuario
 
-        /*if (!user) {
+        if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } else {*/
+        } else {
 
             const data = readData();
             //const user = { name: 'Yeneviel'}
             const songs=data.songs
             //res.render("songs/listSongs", { songs })
             res.json( { songs })
-        //}
+        }
 
     } catch (error) {
         console.log(error);

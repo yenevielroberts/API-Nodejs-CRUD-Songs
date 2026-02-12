@@ -10,7 +10,12 @@ import cors from 'cors'
 
 const app = express();
 //Declaro lo que usaré
-app.use(cors())
+app.use(cors({
+    origin: 'https://expert-space-invention-r4554rjr499cx56-5173.app.github.dev', // SIN la barra "/" al final
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());//Se puede utilizar este en vez de bodyparse()
 app.use(express.static("public"))//le digo como tiene que tratar los archivos dentro de esa carpeta
 app.set('view engine', 'ejs')//Quiere decir que quiero usar este motor
@@ -24,7 +29,7 @@ app.set('views', './views'); // Ubicación de las plantillas
 
 
 //inicio middleware
-/*app.use((req, res, next) => {//interseta todas las peticiones 
+app.use((req, res, next) => {//interseta todas las peticiones 
     const token = req.cookies.access_token//Obtengo el token guardado en la cookie
     req.session = { user: null }//Creo una session. Un objecto con el campo user
     try {
@@ -34,7 +39,7 @@ app.set('views', './views'); // Ubicación de las plantillas
         req.session.user = null
     }
     next() //Pasa al siguiente endpoint
-})*/
+})
 
 //Le digo que tengo diferentes endpoints
 app.use('/movies', moviesRoutes);//Todad las peticiones de este archivo empezará con /movies
@@ -71,8 +76,8 @@ app.post('/login', async (req, res) => {
             //Creo una cookie en la respuesta HTTP. Primer argumento nombre de la cookie,segundor argumento el valor que se guardara y último opciones de seguridad y duración
             .cookie('access_token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
+                secure: true,
+                sameSite: 'none',
                 maxAge: 1000 * 60 * 60
             })
             .send({ user, token })
