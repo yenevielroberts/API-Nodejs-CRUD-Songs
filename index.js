@@ -11,7 +11,7 @@ import cors from 'cors'
 const app = express();
 //Declaro lo que usaré
 app.use(cors({
-    origin: 'https://expert-space-invention-r4554rjr499cx56-5173.app.github.dev', // SIN la barra "/" al final
+    origin:'https://expert-space-invention-r4554rjr499cx56-5173.app.github.dev', // SIN la barra "/" al final
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -92,6 +92,7 @@ app.post('/signup', async (req, res) => {
     try {
         
         const { username, password } = req.body//Obtengo los valores del body enviado en el json
+        console.log(username, password);
         const user = await UserRepository.create({ username, password });
         //Genero el token también aquí para poder acceder a las rutas protegidas y acceder al home
         const token = jwt.sign(
@@ -107,9 +108,11 @@ app.post('/signup', async (req, res) => {
                 sameSite: 'strict',
                 maxAge: 1000 * 60 * 60
             })
-            .send({ user, token })
+            .json({ user, token })
+
+            console.log(user);
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(400).json({error:error.message})
     }
 
 })
