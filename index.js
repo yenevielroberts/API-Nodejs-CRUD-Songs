@@ -92,7 +92,6 @@ app.post('/signup', async (req, res) => {
     try {
         
         const { username, password } = req.body//Obtengo los valores del body enviado en el json
-        console.log(username, password);
         const user = await UserRepository.create({ username, password });
         //Genero el token también aquí para poder acceder a las rutas protegidas y acceder al home
         const token = jwt.sign(
