@@ -11,7 +11,7 @@ import cors from 'cors'
 const app = express();
 //Declaro lo que usaré
 app.use(cors({
-    origin:'https://expert-space-invention-r4554rjr499cx56-5173.app.github.dev', // SIN la barra "/" al final
+    origin:'http://localhost:5173', // SIN la barra "/" al final
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -82,7 +82,7 @@ app.post('/login', async (req, res) => {
             })
             .send({ user, token })
     } catch (error) {
-        res.status(401).send(error.message)
+        res.status(401).json({ error: error.message })
     }
 })
 
