@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
         const { user } = req.session //Obtengo los datos de session del usuario
 
         if (!user) {
-            return res.status(403).render('unauthorized',{message:'Access denied'})
+            return res.status(403).json({message:'Access denied'})
         } else {
 
             const data = readData();
@@ -48,7 +48,7 @@ router.get("/", (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized',{ message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 
 
@@ -62,7 +62,7 @@ router.get("/songs", (req, res) => {
         const { user } = req.session //Obtengo los datos de session del usuario
 
         if (!user) {
-            return res.status(403).render('unauthorized',{message:'Access denied'})
+            return res.status(403).json({message:'Access denied'})
         } else {
 
             res.render("songs/createSong")
@@ -70,7 +70,7 @@ router.get("/songs", (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).render('unauthorized',{ message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 
 })
