@@ -80,10 +80,10 @@ router.get("/songs/:id", (req, res) => {
 
     try {
         //compruebo accesso
-        //const { user } = req.session
-        /*if (!user) {
+        const { user } = req.session
+        if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } {*/
+        } {
             const data = readData();
             //Extraiem l'id de l'url recordem que req es un objecte tipus requets
             // que conté l'atribut params i el podem consultar
@@ -96,7 +96,7 @@ router.get("/songs/:id", (req, res) => {
             } else {
                 res.render('songs/editSong', { song });
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
@@ -110,10 +110,10 @@ router.get("/show/:id", (req, res) => {
 
     try {
         //compruebo accesso
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } else {*/
+        } else {
             const data = readData();
             //Extraiem l'id de l'url recordem que req es un objecte tipus requets
             // que conté l'atribut params i el podem consultar
@@ -127,7 +127,7 @@ router.get("/show/:id", (req, res) => {
                 //res.render('songs/detailSong', { song });
                  res.json({ song });
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
@@ -143,10 +143,10 @@ router.post("/songs", (req, res) => {
 
     try {
         //compruebo acceso
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } else {*/
+        } else {
             const data = readData();
             const body = req.body;
             //todo lo que viene en ...body se agrega al nuevo libro
@@ -172,7 +172,7 @@ router.post("/songs", (req, res) => {
             } else {
                 res.json({ message: "This song already exists" })
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
@@ -188,10 +188,10 @@ router.put("/songs/:id", (req, res) => {
     try {
         //compruebo acceso
 
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } else {*/
+        } else {
             const data = readData();
             const body = req.body;
             const id = req.params.id;
@@ -207,7 +207,7 @@ router.put("/songs/:id", (req, res) => {
             } else {
                 res.status(404).json({ message: 'Song not found' })
             }
-        //}
+        }
 
 
     } catch (error) {
@@ -224,11 +224,11 @@ router.delete("/songs/:id", (req, res) => {
     try {
         //compruebo acceso
 
-        /*const { user } = req.session
+        const { user } = req.session
 
         if (!user) {
             return res.status(403).render('unauthorized',{message:'Access denied'})
-        } else {*/
+        } else {
             const data = readData();
             const id = req.params.id;
             const songIndex = data.songs.findIndex((song) => song.id === id);
@@ -242,7 +242,7 @@ router.delete("/songs/:id", (req, res) => {
                 writeData(data);
                 res.json({ message: "Song deleted successfully" });
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
