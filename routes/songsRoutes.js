@@ -112,7 +112,7 @@ router.get("/show/:id", (req, res) => {
         //compruebo accesso
         const { user } = req.session
         if (!user) {
-            return res.status(403).render('unauthorized',{message:'Access denied'})
+            return res.status(403).json({message:'Access denied'})
         } else {
             const data = readData();
             //Extraiem l'id de l'url recordem que req es un objecte tipus requets
@@ -131,7 +131,7 @@ router.get("/show/:id", (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized',{ message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 
 
@@ -176,7 +176,7 @@ router.post("/songs", (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized',{ message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 
 
@@ -246,7 +246,7 @@ router.delete("/songs/:id", (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized',{ message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 });
 

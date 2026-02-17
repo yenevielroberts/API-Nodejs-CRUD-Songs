@@ -33,23 +33,23 @@ router.get("/", (req, res) => {
 
     try {
         //Compruebo el accesso
-        //const { user } = req.session //Obtengo los datos de session del usuario
+        const { user } = req.session //Obtengo los datos de session del usuario
 
-        /*if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } else {*/
+        if (!user) {
+            return res.status(403).json({ message: 'Access denied' })
+        } else {
 
             const data = readData();
             const movies = data.movies
-            //const user = { name: "Yeneviel" }
+            const user = { name: "Yeneviel" }
 
             res.json({ movies })
 
-        //}
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json({ message: 'Internal server error' })
     }
 
 
@@ -63,7 +63,7 @@ router.get("/movies", (req, res) => {
         const { user } = req.session //Obtengo los datos de session del usuario
 
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
+            return res.status(403).json({ message: 'Access denied' })
         } else {
 
             res.render("movies/createMovies")
@@ -71,7 +71,7 @@ router.get("/movies", (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json( { message: 'Internal server error' })
     }
 
 })
@@ -81,10 +81,10 @@ router.get("/movies/:id", (req, res) => {
 
     try {
         //compruebo accesso
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } {*/
+            return res.status(403).json( { message: 'Access denied' })
+        } {
             const data = readData();
             //Extraiem l'id de l'url recordem que req es un objecte tipus requets
             // que conté l'atribut params i el podem consultar
@@ -97,7 +97,7 @@ router.get("/movies/:id", (req, res) => {
             } else {
                 res.render('movies/editMovies', { movie: movie });
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
@@ -111,10 +111,10 @@ router.get("/show/:id", (req, res) => {
 
     try {
         //compruebo accesso
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } else {*/
+            return res.status(403).json( { message: 'Access denied' })
+        } else {
             const data = readData();
             //Extraiem l'id de l'url recordem que req es un objecte tipus requets
             // que conté l'atribut params i el podem consultar
@@ -127,11 +127,11 @@ router.get("/show/:id", (req, res) => {
             } else {
                 res.json({ movie: movie });
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json( { message: 'Internal server error' })
     }
 })
 
@@ -141,10 +141,10 @@ router.post("/movies", (req, res) => {
 
     try {
         //compruebo acceso
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } else {*/
+            return res.status(403).json({ message: 'Access denied' })
+        } else {
             const data = readData();
             const body = req.body;
             //todo lo que viene en ...body se agrega al nuevo libro
@@ -173,15 +173,15 @@ router.post("/movies", (req, res) => {
                 };
                 data.movies.push(newMovie);
                 writeData(data);
-                res.json(newMovie);
+                res.json({newMovie});
             } else {
                 res.json({ message: "This movie already exists" })
             }
-        //}
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json( { message: 'Internal server error' })
     }
 });
 
@@ -191,10 +191,10 @@ router.put("/movies/:id", (req, res) => {
     try {
         //compruebo acceso
 
-        /*const { user } = req.session
+        const { user } = req.session
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } else {*/
+            return res.status(403).json( { message: 'Access denied' })
+        } else {
             const data = readData();
             const body = req.body;
             const id = req.params.id;
@@ -210,12 +210,12 @@ router.put("/movies/:id", (req, res) => {
             } else {
                 res.status(404).json({ message: 'Movie not found' })
             }
-        //}
+        }
 
 
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json( { message: 'Internal server error' })
     }
 
 });
@@ -227,11 +227,11 @@ router.delete("/movies/:id", (req, res) => {
     try {
         //compruebo acceso
 
-        /*const { user } = req.session
+        const { user } = req.session
 
         if (!user) {
-            return res.status(403).render('unauthorized', { message: 'Access denied' })
-        } else {*/
+            return res.status(403).json( { message: 'Access denied' })
+        } else {
             const data = readData();
             const id = req.params.id;
             const movieIndex = data.movies.findIndex((movie) => movie.id === id);
@@ -245,10 +245,10 @@ router.delete("/movies/:id", (req, res) => {
                 writeData(data);
                 res.json({ message: "Movie deleted successfully" });
             }
-        //}
+        }
     } catch (error) {
         console.log(error);
-        res.status(500).render('unauthorized', { message: 'Internal server error' })
+        res.status(500).json( { message: 'Internal server error' })
     }
 });
 
