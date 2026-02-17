@@ -173,7 +173,7 @@ router.post("/movies", (req, res) => {
                 };
                 data.movies.push(newMovie);
                 writeData(data);
-                res.json({newMovie});
+                res.json(newMovie);
             } else {
                 res.json({ message: "This movie already exists" })
             }
